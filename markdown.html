@@ -1,0 +1,65 @@
+---
+layout: none
+---
+<!DOCTYPE html>
+<html lang="en">
+{% include head_markdown.html %}
+
+<body style="width:100%">
+  {% include header.html %}
+  <div style=" margin-top:40px; padding-top:40px">
+    <div class="row" style="margin-left:0px; width:100%; max-width: 110%;">
+      <div class="large-6 columns sampling">
+        <h1 style="text-align: center;"> Preview </h1>
+        <div id="preview" style="padding: 3%;">
+        </div>
+      </div>
+      <div class="large-6 columns sampling">
+        <h1 style="text-align: center;"> Editor </h1>
+        <div>
+          <div id="editor">
+# Markdown
+
+- Type some Markdown on the right
+- See HTML in the left
+- Magic
+
+Markdown is a lightweight markup language based on the formatting
+conventions that people naturally use in email.  As John Gruber writes
+on the [Markdown site](http://daringfireball.net/projects/markdown/)
+
+&gt; The overriding design goal for Markdown's
+&gt; formatting syntax is to make it as readable
+&gt; as possible. The idea is that a
+&gt; Markdown-formatted document should be
+&gt; publishable as-is, as plain text, without
+&gt; looking like it's been marked up with tags
+&gt; or formatting instructions.
+
+This text you see here is *actually* written in Markdown! To get a feel for
+Markdown's syntax, type some text into the right window and watch the results in the left.
+
+For more info, see [this cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+          </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/7.0.1/markdown-it.js"></script>
+        <script src="/assets/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+        <script>
+          var editor = ace.edit("editor");
+          editor.setTheme("ace/theme/monokai");
+          var session = editor.getSession();
+          session.setMode("ace/mode/markdown");
+          var doc = session.getDocument();
+          var md = window.markdownit();
+          document.getElementById('preview').innerHTML = md.render(doc.getValue());
+          doc.on("change", function(e) {
+            var result = md.render(doc.getValue());
+            document.getElementById('preview').innerHTML = result;
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
